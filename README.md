@@ -1,3 +1,59 @@
+# ---------------------------------------------------------------------------------------------------
+
+# Task for NodeJS engineer
+
+# You have been provided with a basic backend project involving GraphQL, Strapi etc. The project has basic GraphQL resolvers and schema modelled after a company.
+
+#
+
+# The entities are: employee, department, task, account, and address.
+
+# Their relationships are as follows:
+
+# Employee : many to one : Task
+
+# Employee : many to one : Department
+
+# Task : many to one : Department
+
+# Employee : one to one : Account
+
+# Employee: one to one : Address
+
+#
+
+# Create any missing entities and relationships yourself using the existing ones as reference.
+
+#
+
+# You are required to write code and perform the following tasks using GraphQL:
+
+# Create three departments.
+
+# Create several employees, and add 4 - 6 employees randomly in each department. For each employee create a related account and address entry.
+
+# For each department create a few tasks. Each task may be assigned to 1 - 3 people randomly. Each employee must be assigned a task.
+
+# Update random tasks from random departments as completed.
+
+#
+
+#
+
+# To run the project, have Docker installed and running, then run docker-compose up -d
+
+# Strapi CMS can be accessed at http://localhost:25080/strapi/
+
+# Strapi login credentials:
+
+# Username: demo@app.com
+
+# Password: Demo@123
+
+# You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql
+
+# ---------------------------------------------------------------------------------------------------
+
 # nodejs + Apollo + GraphQL + Strapi + Redis
 
 ## Stack
@@ -8,10 +64,12 @@
 
 **Container**: `docker compose`
 
-## Pre-requisit
+## Pre-requisite
+
 `docker Desktop` + `docker-compose` should be installed
 
 ## Run Project
+
 ```bash
 # start project with
 docker compose up
