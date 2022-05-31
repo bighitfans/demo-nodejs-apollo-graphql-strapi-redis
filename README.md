@@ -41,11 +41,11 @@ Add a `GraphQL` resolver for `Department`
   * create a `Department` `Content-Type`
 
 - in `api` project:
-      
+
   * create a `type` `Department` (ref: `src/graphql/employee.graphql`)
 
   * create a `resolver` `Department` (ref: `src/graphql/employee.js`)
-      
+
   * create a `DataSource` `Department` (ref: `src/graphql-datasources\base.js`)
 
 * Create three departments.
@@ -59,7 +59,13 @@ Add a `GraphQL` resolver for `Department`
 
 ## Pre-requisite
 
-`docker Desktop` + `docker-compose` should be installed
+- `docker Desktop` + `docker-compose` should be installed
+
+- understanding of `Strapi`
+
+  - [About Strapi v3](https://strapi.io/)
+
+  - [Getting Started v3](https://docs-v3.strapi.io/developer-docs/latest/getting-started/introduction.html)
 
 ## Run Project
 
