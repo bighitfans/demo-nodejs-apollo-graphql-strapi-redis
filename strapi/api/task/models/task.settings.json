@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "tasks",
+  "info": {
+    "name": "Task"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "is_complete": {
+      "type": "boolean"
+    },
+    "employee": {
+      "via": "tasks",
+      "model": "employee"
+    }
+  }
+}

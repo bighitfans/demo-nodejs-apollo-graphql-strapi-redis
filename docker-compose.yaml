@@ -1,0 +1,125 @@
+version: "3.5"
+
+services:
+
+  nginx:
+    build:
+      context: ./nginx
+    environment:
+      - NGINX_PORT=${NGINX_PORT:-80}
+      - NGINX_SERVER_NAME=${NGINX_SERVER_NAME:-localhost}
+    ports:
+      - ${ENDPOINT_PORT:-25080}:${NGINX_PORT:-80}
+    volumes:
+      - ./nginx/var_www_html:/usr/share/nginx/html
+    restart: unless-stopped
+    depends_on:
+      - api
+      - strapi
+      - adminer
+
+  init-api:
+    image: node:lts-alpine
+    volumes:
+      - ./api:/home/node/app
+    user: root
+    command:
+      - sh
+      - -c
+      - |
+        cd /home/node/app
+        echo changing permissions...
+        chown node:node .
+        echo installing node packages...
+        npm i
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./api:/home/node/app
+    command:
+      - sh
+      - -c
+      - |
+        nodemon
+    restart: unless-stopped
+    environment:
+      - ENDPOINT_PORT=${ENDPOINT_PORT:-25080}
+    depends_on:
+      init-api:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+
+  init-strapi:
+    image: node:14-alpine
+    volumes:
+      - ./strapi:/home/node/app
+    user: root
+    command:
+      - sh
+      - -c
+      - |
+        cd /home/node/app
+        echo changing permissions...
+        chown node:node .
+        echo installing node packages...
+        npm i
+
+  strapi:
+    build:
+      context: ./strapi
+    environment:
+      - STRAPI_DATABASE_HOST=${DB_HOST:-db}
+      - STRAPI_DATABASE_PORT=${DB_PORT:-3306}
+      - STRAPI_DATABASE_NAME=${DB_NAME:-api}
+      - STRAPI_DATABASE_USER=${DB_USER:-admin}
+      - STRAPI_DATABASE_PASSWORD=${DB_PASS:-dbpass}
+    volumes:
+      - ./strapi:/home/node/app
+    command:
+      - sh
+      - -c
+      - |
+        npm run develop
+    restart: unless-stopped
+    depends_on:
+      init-strapi:
+        condition: service_completed_successfully
+      db:
+        condition: service_healthy
+
+  redis:
+    image: redis
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  db:
+    image: mariadb:10.6
+    volumes:
+      - mariadata:/var/lib/mysql
+      - ./db/data:/docker-entrypoint-initdb.d
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD="12345"
+      - MYSQL_DATABASE=${DB_NAME:-api}
+      - MYSQL_USER=${DB_USER:-admin}
+      - MYSQL_PASSWORD=${DB_PASSWORD:-dbpass}
+      - APP_ENV=local
+    healthcheck:
+      test: "/usr/bin/mysql -u $${MYSQL_USER} -p$${MYSQL_PASSWORD} --execute \"SHOW DATABASES;\""
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+  adminer:
+    image: adminer
+    restart: always
+
+volumes:
+  mariadata:

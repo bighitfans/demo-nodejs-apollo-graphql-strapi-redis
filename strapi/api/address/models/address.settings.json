@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "addresses",
+  "info": {
+    "name": "address"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "zipcode": {
+      "type": "integer"
+    },
+    "city": {
+      "type": "string"
+    },
+    "landmark": {
+      "type": "string"
+    }
+  }
+}
