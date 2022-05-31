@@ -1,74 +1,49 @@
-# IMPORTANT:
+# Demo nodejs + Apollo + GraphQL + Strapi + Redis
 
-# Please choose your tasks section from below depending on the role you are applying to.
+#### IMPORTANT:
 
-# After cloning this project, fork it before you begin development.
+Please choose your tasks section from below depending on the role you are applying to.
 
-# ---------------------------------------------------------------------------------------------------
+After cloning this project, fork it before you begin development.
 
-# Task for NodeJS engineer
-
-# You have been provided with a basic backend project involving GraphQL, Strapi etc. The project has basic GraphQL resolvers and schema modelled after a company.
-
-#
-
-# The entities are: employee, department, task, account, and address.
-
-# Their relationships are as follows:
-
-# Employee : many to one : Task
-
-# Employee : many to one : Department
-
-# Task : many to one : Department
-
-# Employee : one to one : Account
-
-# Employee: one to one : Address
-
-#
-
-# Create any missing entities and relationships yourself using the existing ones as reference.
-
-#
-
-# You are required to write code and perform the following tasks using GraphQL:
-
-# Create three departments.
-
-# Create several employees, and add 4 - 6 employees randomly in each department. For each employee create a related account and address entry.
-
-# For each department create a few tasks. Each task may be assigned to 1 - 3 people randomly. Each employee must be assigned a task.
-
-# Update random tasks from random departments as completed.
-
-#
-
-#
-
-# To run the project, have Docker installed and running, then run docker-compose up -d
-
-# Strapi CMS can be accessed at http://localhost:25080/strapi/
-
-# Strapi login credentials:
-
-# Username: demo@app.com
-
-# Password: Demo@123
-
-# You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql
-
-# ---------------------------------------------------------------------------------------------------
-
-# nodejs + Apollo + GraphQL + Strapi + Redis
-
-## Stack
+## Demo Stack
 
 **api**: `nodejs` + `apollo graph server`
 
 **Content Management System**: `Strapi`
 
 **Container**: `docker compose`
+
+## Task for NodeJS engineer
+
+The `Demo` project is built on `nodejs` with `Apollo-GraphQL` & `Strapi`. The project has `GraphQL` `resolvers` and `schema` modelled for:
+- `Employee` collection
+- `Task` collection
+
+Their relationships are as follows:
+
+`Employee` : `one to many` : `Task`
+
+Create `GraphQL` resolvers for `Department`
+
+You have to:
+
+- in `Strapi CMS`
+      - create a `Department` `Content-Type`
+
+- in `api` project:
+      - create a `type` `Department` (ref: `src/graphql/employee.graphql`)
+      - create a `resolver` `Department` (ref: `src/graphql/employee.js`)
+      - create a `DataSource` `Department` (ref: `src/graphql-datasources\base.js`)
+
+* Create three departments.
+
+* Create several employees, and add 4 - 6 employees randomly in each department. For each employee create a related account and address entry.
+
+* For each department create a few tasks. Each task may be assigned to 1 - 3 people randomly. Each employee must be assigned a task.
+
+* Update random tasks from random departments as completed.
+
 
 ## Pre-requisite
 
@@ -99,7 +74,24 @@ demo-nodejs-apollo-graphql-strapi-redis_strapi_1        "docker-entrypoint.s…"
 docker compose logs -f
 ```
 
-## Application Components and access
+### Access api
+
+http://localhost:25080/graphql
+
+You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql
+
+### Access Strapi
+
+http://localhost:25080/strapi/
+
+Strapi login credentials:
+
+Username: demo@app.com
+
+Password: Demo@123
+
+
+## Application Components and Design
 
 <pre>
                                           ┌──────────────────────────────────────────────────────────────────┐
