@@ -11,16 +11,6 @@ const bodyParser = require('body-parser')
 const app = express()
 const router = require('./api-router')
 
-const { REDIS_CONFIG } = require('./constants')
-
-logger.info(`
-`
-    // saved if needed later
-    //npm ioredis url: ${process.env.IOREDIS_URLS}
-    //npm ioredis: `,IOREDIS_CONFIG,`
-)
-
-// configure server
 app
   .use(device.capture()) // requred by appmorgan
 
