@@ -1,3 +1,9 @@
+# IMPORTANT:
+
+# 1. Please choose your tasks section from below depending on the role you are applying to.
+
+# 2. After cloning this project, fork it before you begin development.
+
 # ---------------------------------------------------------------------------------------------------
 
 # Task for NodeJS engineer
