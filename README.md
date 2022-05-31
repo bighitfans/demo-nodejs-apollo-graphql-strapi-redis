@@ -6,7 +6,9 @@ Please choose your tasks section from below depending on the role you are applyi
 
 After cloning this project, fork it before you begin development.
 
-## Demo Stack
+## About the Demo
+
+### Stack
 
 **api**: `nodejs` + `apollo graph server`
 
@@ -14,27 +16,37 @@ After cloning this project, fork it before you begin development.
 
 **Container**: `docker compose`
 
-## Task for NodeJS engineer
+### Description
 
-The `Demo` project is built on `nodejs` with `Apollo-GraphQL` & `Strapi`. The project has `GraphQL` `resolvers` and `schema` modelled for:
+The `Demo` project is built on `nodejs` with `Apollo-GraphQL` & `Strapi`.
+
+The project has `GraphQL` `resolvers` and `schema` modelled for:
+
 - `Employee` collection
+
 - `Task` collection
 
 Their relationships are as follows:
 
 `Employee` : `one to many` : `Task`
 
-Create `GraphQL` resolvers for `Department`
+## Task for nodejs developers
 
-You have to:
+Add a `GraphQL` resolver for `Department`
+
+### Steps:
 
 - in `Strapi CMS`
-      - create a `Department` `Content-Type`
+
+  * create a `Department` `Content-Type`
 
 - in `api` project:
-      - create a `type` `Department` (ref: `src/graphql/employee.graphql`)
-      - create a `resolver` `Department` (ref: `src/graphql/employee.js`)
-      - create a `DataSource` `Department` (ref: `src/graphql-datasources\base.js`)
+      
+  * create a `type` `Department` (ref: `src/graphql/employee.graphql`)
+
+  * create a `resolver` `Department` (ref: `src/graphql/employee.js`)
+      
+  * create a `DataSource` `Department` (ref: `src/graphql-datasources\base.js`)
 
 * Create three departments.
 
