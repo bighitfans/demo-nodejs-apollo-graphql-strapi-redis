@@ -6,8 +6,6 @@ const { STRAPI_URL } = require('../../constants')
 
 module.exports = async(collection, data, options={}) => {
 
-  //console.log(collection,data);
-  //console.log(collection,'----------------------------------------')
   if(data.id)
     return await patch(collection, data.id, data, options)
   else
