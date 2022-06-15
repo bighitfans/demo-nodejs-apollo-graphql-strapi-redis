@@ -28,7 +28,7 @@ The project has `GraphQL` `resolvers` and `schema` modelled for:
 
 Their relationships are as follows:
 
-`Employee` : `one to many` : `Task`
+`Employee` : `many to one` : `Task`
 
 ## Task for nodejs developers
 
