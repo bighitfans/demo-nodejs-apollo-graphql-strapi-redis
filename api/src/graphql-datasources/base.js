@@ -59,10 +59,10 @@ class BaseDS extends DataSource {
         var doc = {}
 
         if (data.id) {
-            doc = await this.service.set(data)
+            doc = await this.service.patch(data)
         }
         else {
-            doc = await this.service.patch(data)
+            doc = await this.service.set(data)
         }
 
         if (! doc.err && ttlInSeconds) {
