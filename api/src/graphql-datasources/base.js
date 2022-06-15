@@ -66,7 +66,7 @@ class BaseDS extends DataSource {
         }
 
         if (! doc.err && ttlInSeconds) {
-            this.cache.set(this.cacheKey(id), JSON.stringify(doc), { ttl: ttlInSeconds })
+            this.cache.set(this.cacheKey(doc.id), JSON.stringify(doc), { ttl: ttlInSeconds })
         }
 
         return doc
