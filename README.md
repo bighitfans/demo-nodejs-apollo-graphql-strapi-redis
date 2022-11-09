@@ -4,21 +4,30 @@
 
 After cloning this project, fork it before you begin development.
 
-## About the `Demo` Project
+## About the `repo`
 
-### Project Stack
+The `repo` has 2 projects in folders:
 
-|**gqlserver** |`nodejs` + `apollo graph server` |
-|:--|:--|
-|**Content Management System** |`Strapi` |
-|**Database** |`mariadb` |
-|**Container** |`docker compose` |
+`gqlserver` => a `nodejs` based `apollo-graphql-server`
+
+`.infra/strapi` => `strapi` headless CMS
+
+The project runs using `docker compose`, which also runs `services`- `nginx`, `mariadb`, `redis` & `adminer` used by above projects.
+
+### Project `services` / Stack
+| service | lang/pkg/tool | description |
+|:--|:--|:--|
+| `gqlserver` |`nodejs` + `apollo graph server` | main `nodejs` server |
+| `strapi` | [Strapi CMS](https://strapi.io/) | Content Management System |
+| `db` | `mariadb` | Database |
+| `adminer` | [Adminer](https://www.adminer.org/) | DBMS |
+| `nginx` | `nginx` | for url routing |
 
 ### Description
 
-The `Demo` project is built on `nodejs` with `Apollo-GraphQL` & `Strapi`.
+The project is built on `nodejs` with `Apollo-GraphQL` & `Strapi`.
 
-The project has `GraphQL` `resolvers` and `schema` modelled for:
+The `gqlserver` project has `GraphQL` `resolvers` and `schema` modelled for:
 
 - `Employee` collection
 
@@ -30,9 +39,11 @@ Their relationships are as follows:
 
 (Employee `belongs to many` Tasks)
 
+The models are created in `Strapi CMS` which uses `mariadb` for storing daata.
+
 ## Task for nodejs developers
 
-Add a `Department` collection
+Add a `Department` collection & its `resolvers` in `gqlserver` project
 
 ### Steps:
 
@@ -48,15 +59,16 @@ Add a `Department` collection
 
   * create a `DataSource` `Department` (ref: `src/graphql-datasources\base.js`)
 
-* Create three departments.
+- using `Strapi CMS` add following data:
+  * add three departments.
 
-* Create several employees, and add 4 - 6 employees randomly in each department. For each employee create a related account and address entry.
+  * add several employees, and add 4 - 6 employees randomly in each department. For each employee create a related account and address entry.
 
-* For each department create a few tasks. Each task may be assigned to 1 - 3 people randomly. Each employee must be assigned a task.
+  * For each department add a few tasks. Each task may be assigned to 1 - 3 people randomly. Each employee must be assigned a task.
 
-* Update random tasks from random departments as completed.
+  * Update random tasks from random departments as completed.
 
-## Run Project
+## Runming Project
 
 The project runs inside docker container with `hot reload` enabled. Any changes made to `gqlserver/src` folder will be `hot reloaded`.
 
@@ -72,14 +84,17 @@ The project runs inside docker container with `hot reload` enabled. Any changes 
 
 ### Steps to Run `Project`
 
+**Windows** user install `docker` in WSL & run commands in `PowerShell (x86)`.
+**Ubuntu** & **Mac** users use `terminal`.
+
 ```bash
 # start project with
-docker compose up -d
+docker compose up
 or
-docker-compose up -d
+docker-compose up
 
-# run below command till nginx service appears
-watch -x docker compose ps
+# in a different window / terminal run below command till nginx service appears
+docker compose ps
 # output
 NAME                                                    COMMAND                  SERVICE             STATUS              PORTS
 demo-nodejs-apollo-graphql-strapi-redis_adminer_1       "entrypoint.sh docke…"   adminer             running             8080/tcp
@@ -103,6 +118,7 @@ docker compose logs -f gqlserver
 # to view only `strapi` logs
 docker compose logs -f strapi
 ```
+The project will take time to setup all `services`. It will be ready once following output is visible:
 
 ## Access details
 
