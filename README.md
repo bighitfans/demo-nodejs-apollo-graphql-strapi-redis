@@ -84,16 +84,17 @@ The project runs inside docker container with `hot reload` enabled. Any changes 
 
 ### Steps to Run `Project`
 
-**Windows** user install `docker` in WSL & run commands in `PowerShell (x86)`.
+**Windows** user install `docker` in `WSL` mode & run commands in `PowerShell (x86)`.
+
 **Ubuntu** & **Mac** users use `terminal`.
 
 ```bash
-# start project with
+# in (window/terminal 1) start project with
 docker compose up
 or
 docker-compose up
 
-# in a different window / terminal run below command till nginx service appears
+# in a (window/terminal 2) run below command till nginx service appears
 docker compose ps
 # output
 NAME                                                    COMMAND                  SERVICE             STATUS              PORTS
@@ -106,7 +107,7 @@ demo-nodejs-apollo-graphql-strapi-redis_nginx_1         "/docker-entrypoint.…"
 demo-nodejs-apollo-graphql-strapi-redis_redis_1         "docker-entrypoint.s…"   redis               running (healthy)   6379/tcp
 demo-nodejs-apollo-graphql-strapi-redis_strapi_1        "docker-entrypoint.s…"   strapi              running
 
-# to view logs run
+# in (window/terminal 3) to view logs run
 docker compose logs -f
 
 # to view `gqlserver` & `strapi` project logs
@@ -118,15 +119,15 @@ docker compose logs -f gqlserver
 # to view only `strapi` logs
 docker compose logs -f strapi
 ```
-The project will take time to setup all `services`. It will be ready once following output is visible:
+The project will take time to setup all `services`. It will be ready once following output is visible in (window/termilan 1):
 
 ## Access details
 
 |service | endpoint | credentials |
 |:--|:-:|:-|
-| Access gqlserver | http://localhost:25080/graphql | - |
-| Access Strapi | http://localhost:25080/strapi/ |  _Strapi login credentials: <br />Username: **demo@app.com** <br />Password: **Demo@123**_ |
-| Access mariadb | http://localhost:25080/adminer/ | _Adminer login credentials: <br /> System: **MySQL** <br /> Server: **db** <br /> Username: **admin** <br /> Password: **dbpass** <br /> Database: **gqlserver**_ |
+| `gqlserver` | http://localhost:25080/graphql | - |
+| `Strapi CMS` | http://localhost:25080/strapi/ |  _Strapi login credentials: <br />Username: **demo@app.com** <br />Password: **Demo@123**_ |
+| `mariadb` | http://localhost:25080/adminer/ | _Adminer login credentials: <br /> System: **MySQL** <br /> Server: **db** <br /> Username: **admin** <br /> Password: **dbpass** <br /> Database: **gqlserver**_ |
 
 You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql
 
@@ -165,7 +166,7 @@ You may test your code by using the Apollo GraphQL client at https://studio.apol
 └───┘ ───────────────────────────────────────►  │ └─container ────────────────────────► └──────container                 │
                                                 │                                                                        │
                                                 └────────────────────────────────────────────────────────────────────────┘
-Note: The endpoints http://localhost:25080/gqlserver/* & http://localhost:25080/graphql
+Note: The endpoints http://localhost:25080/api/* & http://localhost:25080/graphql
       are the only public endpoints
       The remaining routes are only for development purpose and are not available in production
 </pre>
