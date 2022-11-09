@@ -8,13 +8,11 @@ After cloning this project, fork it before you begin development.
 
 ### Project Stack
 
-**api**: `nodejs` + `apollo graph server`
-
-**Content Management System**: `Strapi`
-
-**Database**: `mariadb`
-
-**Container**: `docker compose`
+|**api** |`nodejs` + `apollo graph server` |
+|:--|:--|
+|**Content Management System** |`Strapi` |
+|**Database** |`mariadb` |
+|**Container** |`docker compose` |
 
 ### Description
 
@@ -105,38 +103,13 @@ docker compose logs -f strapi
 
 ## Access details
 
-### Access api
+|service | endpoint | credentials |
+|:--|:-:|:-|
+| Access api | http://localhost:25080/graphql | - |
+| Access Strapi | http://localhost:25080/strapi/ |  _Strapi login credentials: <br />Username: **demo@app.com** <br />Password: **Demo@123**_ |
+| Access mariadb | http://localhost:25080/adminer/ | _Adminer login credentials: <br /> System: **MySQL** <br /> Server: **db** <br /> Username: **admin** <br /> Password: **dbpass** <br /> Database: **api**_ |
 
-http://localhost:25080/graphql
-
-You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql
-
-### Access Strapi
-
-http://localhost:25080/strapi/
-
-Strapi login credentials:
-
-Username: demo@app.com
-
-Password: Demo@123
-
-### Access mariadb
-
-http://localhost:25080/adminer/
-
-Adminer login credentials:
-
-System: MySQL
-
-Server: db
-
-Username: admin
-
-Password: dbpass
-
-Database: api
-
+You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql 
 
 ## Application Components and Design
 
