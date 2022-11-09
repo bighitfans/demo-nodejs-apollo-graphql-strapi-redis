@@ -56,8 +56,11 @@ Add a `Department` collection
 
 * Update random tasks from random departments as completed.
 
+## Run Project
 
-## Pre-requisite
+The project runs inside docker container with `hot reload` enabled. Any changes made to `gqlserver/src` folder will be `hot reloaded`.
+
+### Pre-requisite
 
 - `docker Desktop` + `docker-compose` should be installed
 
@@ -67,7 +70,7 @@ Add a `Department` collection
 
   - [Getting Started v3](https://docs-v3.strapi.io/developer-docs/latest/getting-started/introduction.html)
 
-## Run Project
+### Steps to Run `Project`
 
 ```bash
 # start project with
@@ -115,16 +118,16 @@ You may test your code by using the Apollo GraphQL client at https://studio.apol
 
 <pre>
                                                 ┌────────────────────────────────────────────────────────────────────────┐
-                                                │                       docker com      pose network                     │
+                                                │                          docker compose network                        │
                                                 ├────────────────────────────────────────────────────────────────────────┤
                                                 │                                                                        │
                                                 │ ┌────────┐                                                             │
                                                 │ │        │                            ┌─────────────────┐              │
 ┌───┐  http://localhost:25080/gqlserver/upload  │ │        │ gqlserver:3000/api/upload  │                 │              │
-│   │ ──────────────────────────────────►       │ │        │ ─────────────────────────► │                 │              │
+│   │ ───────────────────────────────────────►  │ │        │ ─────────────────────────► │                 │              │
 │   │                                           │ │        │                            │ gqlserver:30000 │              │
 │   │  http://localhost:25080/graphql           │ │        │ gqlserver:3000/grapql      │                 │              │
-│   │ ──────────────────────────────────►       │ │        │ ─────────────────────────► │                 │              │
+│   │ ───────────────────────────────────────►  │ │        │ ─────────────────────────► │                 │              │
 │   │                                           │ │        │                            └─┬───────container              │
 │   │                                           │ │        │                              │                              │
 │   │                                           │ │        │                              ├──► ┌────────────┐            │
@@ -134,16 +137,16 @@ You may test your code by using the Apollo GraphQL client at https://studio.apol
 │ w │                                           │ │        │                              │    strapi:1337/query         │
 │ s │                                           │ │        │                              └──► ┌─────────────┐           │
 │ e │  http://localhost:25080/strapi            │ │        │ strapi:1337/strapi                │             │           │
-│ r │ ──────────────────────────────────►       │ │        │ ────────────────────────────────► │             │           │
+│ r │ ───────────────────────────────────────►  │ │        │ ────────────────────────────────► │             │           │
 │   │                                           │ │        │                                   │ strapi:1337 │           │
 │   │  http://localhost:25080/capi/query        │ │        │ strapi:1337/query                 │             │           │
-│   │ ──────────────────────────────────►       │ │        │ ────────────────────────────────► │             │           │
+│   │ ───────────────────────────────────────►  │ │        │ ────────────────────────────────► │             │           │
 │   │                                           │ │        │                                   └─────container           │
 │   │                                           │ │        │                                             │               │
 │   │                                           │ │        │                                             └─► ┌─────────┐ │
 │   │                                           │ │        │                            ┌──────────────┐     │ db:3306 │ │
 │   │  http://localhost:25080/adminer           │ │        │ adminer:8080               │ adminer:8080 │ ──► └─container │
-└───┘ ──────────────────────────────────►       │ └─container ────────────────────────► └──────container                 │
+└───┘ ───────────────────────────────────────►  │ └─container ────────────────────────► └──────container                 │
                                                 │                                                                        │
                                                 └────────────────────────────────────────────────────────────────────────┘
 Note: The endpoints http://localhost:25080/gqlserver/* & http://localhost:25080/graphql
