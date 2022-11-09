@@ -2,17 +2,17 @@
 
 #### IMPORTANT:
 
-Please choose your tasks section from below depending on the role you are applying to.
-
 After cloning this project, fork it before you begin development.
 
-## About the Demo
+## About the `Demo` Project
 
-### Stack
+### Project Stack
 
 **api**: `nodejs` + `apollo graph server`
 
 **Content Management System**: `Strapi`
+
+**Database**: `mariadb`
 
 **Container**: `docker compose`
 
@@ -28,11 +28,13 @@ The project has `GraphQL` `resolvers` and `schema` modelled for:
 
 Their relationships are as follows:
 
-`Employee` : `many to one` : `Task`
+`Employee` : `one-to-many` : `Task`
+
+(Employee `belongs to many` Tasks)
 
 ## Task for nodejs developers
 
-Add a `GraphQL` resolver for `Department`
+Add a `Department` collection
 
 ### Steps:
 
@@ -90,7 +92,18 @@ demo-nodejs-apollo-graphql-strapi-redis_strapi_1        "docker-entrypoint.s…"
 
 # to view logs run
 docker compose logs -f
+
+# to view `api` & `strapi` project logs
+docker compose logs -f api strapi
+
+# to view only `api` logs
+docker compose logs -f api
+
+# to view only `strapi` logs
+docker compose logs -f strapi
 ```
+
+## Access details
 
 ### Access api
 
@@ -107,6 +120,22 @@ Strapi login credentials:
 Username: demo@app.com
 
 Password: Demo@123
+
+### Access mariadb
+
+http://localhost:25080/adminer/
+
+Adminer login credentials:
+
+System: MySQL
+
+Server: db
+
+Username: admin
+
+Password: dbpass
+
+Database: api
 
 
 ## Application Components and Design
