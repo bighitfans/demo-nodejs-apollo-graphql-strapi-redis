@@ -14,14 +14,14 @@ services:
       - ./.infra/nginx/var_www_html:/usr/share/nginx/html
     restart: unless-stopped
     depends_on:
-      - api
+      - gqlserver
       - strapi
       - adminer
 
-  init-api:
+  init-gqlserver:
     image: node:lts-alpine
     volumes:
-      - ./api:/home/node/app
+      - ./gqlserver:/home/node/app
     user: root
     command:
       - sh
@@ -33,12 +33,12 @@ services:
         echo installing node packages...
         npm i
 
-  api:
+  gqlserver:
     build:
-      context: ./api
+      context: ./gqlserver
       dockerfile: Dockerfile
     volumes:
-      - ./api:/home/node/app
+      - ./gqlserver:/home/node/app
     command:
       - sh
       - -c
@@ -48,7 +48,7 @@ services:
     environment:
       - ENDPOINT_PORT=${ENDPOINT_PORT:-25080}
     depends_on:
-      init-api:
+      init-gqlserver:
         condition: service_completed_successfully
       redis:
         condition: service_healthy
@@ -74,7 +74,7 @@ services:
     environment:
       - STRAPI_DATABASE_HOST=${DB_HOST:-db}
       - STRAPI_DATABASE_PORT=${DB_PORT:-3306}
-      - STRAPI_DATABASE_NAME=${DB_NAME:-api}
+      - STRAPI_DATABASE_NAME=${DB_NAME:-gqlserver}
       - STRAPI_DATABASE_USER=${DB_USER:-admin}
       - STRAPI_DATABASE_PASSWORD=${DB_PASS:-dbpass}
     volumes:
@@ -107,7 +107,7 @@ services:
     restart: always
     environment:
       - MYSQL_ROOT_PASSWORD="12345"
-      - MYSQL_DATABASE=${DB_NAME:-api}
+      - MYSQL_DATABASE=${DB_NAME:-gqlserver}
       - MYSQL_USER=${DB_USER:-admin}
       - MYSQL_PASSWORD=${DB_PASSWORD:-dbpass}
       - APP_ENV=local

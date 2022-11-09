@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.6.8-MariaDB, for debian-linux-gnu (aarch64)
 --
--- Host: localhost    Database: api
+-- Host: localhost    Database: gqlserver
 -- ------------------------------------------------------
 -- Server version	10.6.8-MariaDB-1:10.6.8+maria~focal
 
@@ -15,7 +15,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
-use api;
+use gqlserver;
 
 --
 -- Table structure for table `accounts`

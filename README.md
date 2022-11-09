@@ -40,7 +40,7 @@ Add a `Department` collection
 
   * create a `Department` `Content-Type`
 
-- in `api` project:
+- in `gqlserver` project:
 
   * create a `type` `Department` (ref: `src/graphql/employee.graphql`)
 
@@ -80,9 +80,9 @@ watch -x docker compose ps
 # output
 NAME                                                    COMMAND                  SERVICE             STATUS              PORTS
 demo-nodejs-apollo-graphql-strapi-redis_adminer_1       "entrypoint.sh docke…"   adminer             running             8080/tcp
-demo-nodejs-apollo-graphql-strapi-redis_api_1           "docker-entrypoint.s…"   api                 running
+demo-nodejs-apollo-graphql-strapi-redis_gqlserver_1     "docker-entrypoint.s…"   gqlserver           running
 demo-nodejs-apollo-graphql-strapi-redis_db_1            "docker-entrypoint.s…"   db                  running (healthy)   3306/tcp
-demo-nodejs-apollo-graphql-strapi-redis_init-api_1      "docker-entrypoint.s…"   init-api            exited (0)
+demo-nodejs-apollo-graphql-strapi-redis_init-gqlserver_1"docker-entrypoint.s…"   init-gqlserver      exited (0)
 demo-nodejs-apollo-graphql-strapi-redis_init-strapi_1   "docker-entrypoint.s…"   init-strapi         exited (0)
 demo-nodejs-apollo-graphql-strapi-redis_nginx_1         "/docker-entrypoint.…"   nginx               running             0.0.0.0:25080->80/tcp
 demo-nodejs-apollo-graphql-strapi-redis_redis_1         "docker-entrypoint.s…"   redis               running (healthy)   6379/tcp
@@ -91,11 +91,11 @@ demo-nodejs-apollo-graphql-strapi-redis_strapi_1        "docker-entrypoint.s…"
 # to view logs run
 docker compose logs -f
 
-# to view `api` & `strapi` project logs
-docker compose logs -f api strapi
+# to view `gqlserver` & `strapi` project logs
+docker compose logs -f gqlserver strapi
 
-# to view only `api` logs
-docker compose logs -f api
+# to view only `gqlserver` logs
+docker compose logs -f gqlserver
 
 # to view only `strapi` logs
 docker compose logs -f strapi
@@ -105,51 +105,48 @@ docker compose logs -f strapi
 
 |service | endpoint | credentials |
 |:--|:-:|:-|
-| Access api | http://localhost:25080/graphql | - |
+| Access gqlserver | http://localhost:25080/graphql | - |
 | Access Strapi | http://localhost:25080/strapi/ |  _Strapi login credentials: <br />Username: **demo@app.com** <br />Password: **Demo@123**_ |
-| Access mariadb | http://localhost:25080/adminer/ | _Adminer login credentials: <br /> System: **MySQL** <br /> Server: **db** <br /> Username: **admin** <br /> Password: **dbpass** <br /> Database: **api**_ |
+| Access mariadb | http://localhost:25080/adminer/ | _Adminer login credentials: <br /> System: **MySQL** <br /> Server: **db** <br /> Username: **admin** <br /> Password: **dbpass** <br /> Database: **gqlserver**_ |
 
 You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql
 
 ## Application Components and Design
 
 <pre>
-                                          ┌──────────────────────────────────────────────────────────────────┐
-                                          │                       docker compose network                     │
-                                          ├──────────────────────────────────────────────────────────────────┤
-                                          │                                                                  │
-                                          │ ┌────────┐                                                       │
-                                          │ │        │                      ┌───────────┐                    │
-┌───┐  http://localhost:25080/api/upload  │ │        │ api:3000/api/upload  │           │                    │
-│   │ ──────────────────────────────────► │ │        │ ───────────────────► │           │                    │
-│   │                                     │ │        │                      │ api:30000 │                    │
-│   │  http://localhost:25080/graphql     │ │        │ api:3000/grapql      │           │                    │
-│   │ ──────────────────────────────────► │ │        │ ───────────────────► │           │                    │
-│   │                                     │ │        │                      └─┬─container                    │
-│   │                                     │ │        │                        │                              │
-│   │                                     │ │        │                        ├──► ┌────────────┐            │
-│ B │                               exposes │        │                        │    │ redis:6379 │            │
-│ r │                                  port │        │                        │    └────container            │
-│ o │                                 25080 │nginx:80│                        │                              │
-│ w │                                     │ │        │                        │    strapi:1337/query         │
-│ s │                                     │ │        │                        └──► ┌─────────────┐           │
-│ e │  http://localhost:25080/strapi      │ │        │ strapi:1337/strapi          │             │           │
-│ r │ ──────────────────────────────────► │ │        │ ──────────────────────────► │             │           │
-│   │                                     │ │        │                             │ strapi:1337 │           │
-│   │  http://localhost:25080/capi/query  │ │        │ strapi:1337/query           │             │           │
-│   │ ──────────────────────────────────► │ │        │ ──────────────────────────► │             │           │
-│   │                                     │ │        │                             └─────container           │
-│   │                                     │ │        │                                       │               │
-│   │                                     │ │        │                                       └─► ┌─────────┐ │
-│   │                                     │ │        │                      ┌──────────────┐     │ db:3306 │ │
-│   │  http://localhost:25080/adminer     │ │        │ adminer:8080         │ adminer:8080 │ ──► └─container │
-└───┘ ──────────────────────────────────► │ └─container ──────────────────► └──────container                 │
-                                          │                                                                  │
-                                          └──────────────────────────────────────────────────────────────────┘
-Note: The endpoints http://localhost:25080/api/* & http://localhost:25080/graphql
+                                                ┌────────────────────────────────────────────────────────────────────────┐
+                                                │                       docker com      pose network                     │
+                                                ├────────────────────────────────────────────────────────────────────────┤
+                                                │                                                                        │
+                                                │ ┌────────┐                                                             │
+                                                │ │        │                            ┌─────────────────┐              │
+┌───┐  http://localhost:25080/gqlserver/upload  │ │        │ gqlserver:3000/api/upload  │                 │              │
+│   │ ──────────────────────────────────►       │ │        │ ─────────────────────────► │                 │              │
+│   │                                           │ │        │                            │ gqlserver:30000 │              │
+│   │  http://localhost:25080/graphql           │ │        │ gqlserver:3000/grapql      │                 │              │
+│   │ ──────────────────────────────────►       │ │        │ ─────────────────────────► │                 │              │
+│   │                                           │ │        │                            └─┬───────container              │
+│   │                                           │ │        │                              │                              │
+│   │                                           │ │        │                              ├──► ┌────────────┐            │
+│ B │                                     exposes │        │                              │    │ redis:6379 │            │
+│ r │                                        port │        │                              │    └────container            │
+│ o │                                       25080 │nginx:80│                              │                              │
+│ w │                                           │ │        │                              │    strapi:1337/query         │
+│ s │                                           │ │        │                              └──► ┌─────────────┐           │
+│ e │  http://localhost:25080/strapi            │ │        │ strapi:1337/strapi                │             │           │
+│ r │ ──────────────────────────────────►       │ │        │ ────────────────────────────────► │             │           │
+│   │                                           │ │        │                                   │ strapi:1337 │           │
+│   │  http://localhost:25080/capi/query        │ │        │ strapi:1337/query                 │             │           │
+│   │ ──────────────────────────────────►       │ │        │ ────────────────────────────────► │             │           │
+│   │                                           │ │        │                                   └─────container           │
+│   │                                           │ │        │                                             │               │
+│   │                                           │ │        │                                             └─► ┌─────────┐ │
+│   │                                           │ │        │                            ┌──────────────┐     │ db:3306 │ │
+│   │  http://localhost:25080/adminer           │ │        │ adminer:8080               │ adminer:8080 │ ──► └─container │
+└───┘ ──────────────────────────────────►       │ └─container ────────────────────────► └──────container                 │
+                                                │                                                                        │
+                                                └────────────────────────────────────────────────────────────────────────┘
+Note: The endpoints http://localhost:25080/gqlserver/* & http://localhost:25080/graphql
       are the only public endpoints
       The remaining routes are only for development purpose and are not available in production
 </pre>
-
-
-testing
