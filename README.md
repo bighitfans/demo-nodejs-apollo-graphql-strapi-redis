@@ -121,6 +121,36 @@ docker compose logs -f strapi
 ```
 The project will take time to setup all `services`. It will be ready once following output is visible in (window/termilan 1):
 
+![project startup completed](https://github.com/bighitfans/demo-nodejs-apollo-graphql-strapi-redis/blob/main/docs/imgs/dockercomposeup.PNG)
+
+## Exploring `apollo-graphql-server`
+
+Open Explorer http://localhost:25080/graphql and run following query:
+
+```gql
+query Employees {
+  employees {
+    id
+    name
+    email
+    dob
+    doj
+    created_at
+    updated_at
+    tasks {
+      id
+      title
+      description
+      is_complete
+      created_at
+      updated_at
+    }
+  }
+}
+```
+
+![GraphQL Explorer](https://github.com/bighitfans/demo-nodejs-apollo-graphql-strapi-redis/blob/main/docs/imgs/gql-explorer.PNG)
+
 ## Access details
 
 |service | endpoint | credentials |
