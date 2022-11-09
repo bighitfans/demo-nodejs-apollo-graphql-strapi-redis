@@ -71,9 +71,9 @@ Add a `GraphQL` resolver for `Department`
 
 ```bash
 # start project with
-docker compose up
+docker compose up -d
 or
-docker-compose up
+docker-compose up -d
 
 # run below command till nginx service appears
 watch -x docker compose ps
