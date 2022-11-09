@@ -8,7 +8,7 @@ After cloning this project, fork it before you begin development.
 
 ### Project Stack
 
-|**api** |`nodejs` + `apollo graph server` |
+|**gqlserver** |`nodejs` + `apollo graph server` |
 |:--|:--|
 |**Content Management System** |`Strapi` |
 |**Database** |`mariadb` |
