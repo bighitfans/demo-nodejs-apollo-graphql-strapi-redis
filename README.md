@@ -109,7 +109,7 @@ docker compose logs -f strapi
 | Access Strapi | http://localhost:25080/strapi/ |  _Strapi login credentials: <br />Username: **demo@app.com** <br />Password: **Demo@123**_ |
 | Access mariadb | http://localhost:25080/adminer/ | _Adminer login credentials: <br /> System: **MySQL** <br /> Server: **db** <br /> Username: **admin** <br /> Password: **dbpass** <br /> Database: **api**_ |
 
-You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql 
+You may test your code by using the Apollo GraphQL client at https://studio.apollographql.com/sandbox/explorer with endpoint as http://localhost:25080/graphql
 
 ## Application Components and Design
 
@@ -150,3 +150,6 @@ Note: The endpoints http://localhost:25080/api/* & http://localhost:25080/graphq
       are the only public endpoints
       The remaining routes are only for development purpose and are not available in production
 </pre>
+
+
+testing
