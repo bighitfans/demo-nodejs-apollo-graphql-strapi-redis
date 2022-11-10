@@ -68,7 +68,7 @@ Add a `Department` collection & its `resolvers` in `gqlserver` project
 
   * Update random tasks from random departments as completed.
 
-## Runming Project
+## Running Project
 
 The project runs inside docker container with `hot reload` enabled. Any changes made to `gqlserver/src` folder will be `hot reloaded`.
 
@@ -76,25 +76,28 @@ The project runs inside docker container with `hot reload` enabled. Any changes 
 
 - `docker Desktop` + `docker-compose` should be installed
 
+- **Windows** user install `docker` in `WSL` mode & assign 2 to 4GB memory to `docker`
+
 - understanding of `Strapi`
 
   - [About Strapi v3](https://strapi.io/)
 
   - [Getting Started v3](https://docs-v3.strapi.io/developer-docs/latest/getting-started/introduction.html)
 
+
 ### Steps to Run `Project`
 
-**Windows** user install `docker` in `WSL` mode & run commands in `PowerShell (x86)`.
+**Windows** user run commands in `PowerShell (x86)`.
 
 **Ubuntu** & **Mac** users use `terminal`.
 
 ```bash
-# in (window/terminal 1) start project with
+# in (Powershell/terminal 1) start project with
 docker compose up
 or
 docker-compose up
 
-# in a (window/terminal 2) run below command till nginx service appears
+# in a (Powershell/terminal 2) run below command till nginx service appears
 docker compose ps
 # output
 NAME                                                    COMMAND                  SERVICE             STATUS              PORTS
@@ -107,7 +110,7 @@ demo-nodejs-apollo-graphql-strapi-redis_nginx_1         "/docker-entrypoint.…"
 demo-nodejs-apollo-graphql-strapi-redis_redis_1         "docker-entrypoint.s…"   redis               running (healthy)   6379/tcp
 demo-nodejs-apollo-graphql-strapi-redis_strapi_1        "docker-entrypoint.s…"   strapi              running
 
-# in (window/terminal 3) to view logs run
+# in (Powershell/terminal 3) to view logs run
 docker compose logs -f
 
 # to view `gqlserver` & `strapi` project logs
@@ -119,7 +122,7 @@ docker compose logs -f gqlserver
 # to view only `strapi` logs
 docker compose logs -f strapi
 ```
-The project will take time to setup all `services`. It will be ready once following output is visible in (window/termilan 1):
+The project will take time to setup all `services`. It will be ready once following output is visible in (Powershell/termilan 1):
 
 ![project startup completed](https://github.com/bighitfans/demo-nodejs-apollo-graphql-strapi-redis/blob/main/docs/imgs/dockercomposeup.PNG)
 
@@ -148,6 +151,8 @@ query Employees {
   }
 }
 ```
+
+### Query Explorer & Output
 
 ![GraphQL Explorer](https://github.com/bighitfans/demo-nodejs-apollo-graphql-strapi-redis/blob/main/docs/imgs/gql-explorer.PNG)
 
