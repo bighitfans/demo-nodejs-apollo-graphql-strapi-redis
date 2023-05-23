@@ -1,8 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "addresses",
+  "collectionName": "departments",
   "info": {
-    "name": "address"
+    "name": "Departments",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,18 +12,16 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "zipcode": {
-      "type": "integer"
-    },
-    "city": {
-      "type": "string"
-    },
-    "landmark": {
+    "name": {
       "type": "string"
     },
     "employees": {
-      "via": "address",
+      "via": "department",
       "collection": "employee"
+    },
+    "tasks": {
+      "via": "department",
+      "collection": "task"
     }
   }
 }

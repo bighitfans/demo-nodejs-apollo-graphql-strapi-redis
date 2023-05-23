@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "tasks",
   "info": {
-    "name": "Task"
+    "name": "Task",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -20,9 +21,14 @@
     "is_complete": {
       "type": "boolean"
     },
-    "employee": {
+    "employees": {
       "via": "tasks",
-      "model": "employee"
+      "collection": "employee",
+      "dominant": true
+    },
+    "department": {
+      "via": "tasks",
+      "model": "departments"
     }
   }
 }

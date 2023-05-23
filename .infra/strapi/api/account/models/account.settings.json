@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "accounts",
   "info": {
-    "name": "account"
+    "name": "account",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,10 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "Name": {
-      "type": "string",
-      "required": true
-    },
     "mobile": {
       "type": "integer",
       "max": 10,
@@ -32,6 +29,10 @@
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
+    },
+    "employee": {
+      "via": "account",
+      "model": "employee"
     }
   }
 }

@@ -24,9 +24,21 @@
     "dob": {
       "type": "date"
     },
+    "department": {
+      "via": "employees",
+      "model": "departments"
+    },
+    "account": {
+      "via": "employee",
+      "model": "account"
+    },
     "tasks": {
-      "collection": "task",
-      "via": "employee"
+      "via": "employees",
+      "collection": "task"
+    },
+    "address": {
+      "model": "address",
+      "via": "employees"
     }
   }
 }
